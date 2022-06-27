@@ -8,7 +8,7 @@ using System.Diagnostics;
 //***************************************************************************
 // Module:     TOCRPDFDeclares
 //
-// TOCRPDF declares - part of TOCR Version 5.0.0.0
+// TOCRPDF declares - part of TOCR Version 5.1.0.0
 
 //#Const SUPERSEDED = False ' disallow superseded routines
 

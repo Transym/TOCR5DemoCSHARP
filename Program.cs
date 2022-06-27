@@ -5,13 +5,13 @@
  * EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
  * WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
  *
- * This program demonstrates calling TOCR version 5.0 from C#.
+ * This program demonstrates calling TOCR version 5 from C#.
  * This program demonstrates the simple processing of a single file.
  * No real attempt is made to handle errors.
  *
- * Copyright (C) 2020 Transym Computer Services Ltd.
+ * Copyright (C) 2022 Transym Computer Services Ltd.
  *
- * TOCR5.0DemoCSharp Issue1
+ * TOCR5 DemoCSharp
  */
 
 using System;
@@ -123,7 +123,7 @@ namespace CSharpDemo
             Example10();
         }
 
-        // Demonstrates how to OCR a file
+        // Demonstrates how to OCR a file as V5
         static void Example1()
         {
             TOCRJOBINFO_EG JobInfo_EG = new TOCRJOBINFO_EG();
@@ -143,11 +143,8 @@ namespace CSharpDemo
             //JobInfo_EG.JobType = TOCRJOBTYPE_DIBFILE;
 
             // or
-            // N.B. OCRWait uses TOCRDoJob2 that does not support PDFs
             JobInfo_EG.InputFile = SAMPLE_PDF_FILE;
             JobInfo_EG.JobType = TOCRJOBTYPE_PDFFILE;
-
-            MessageBox.Show("TOCR5.0C#Demo Example 1 Load file - V5 interface", JobInfo_EG.InputFile, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
             Status = TOCRInitialise(ref JobNo);
 
@@ -435,13 +432,13 @@ namespace CSharpDemo
 						        Msg += " V1/2 UPGRADE to V3 SE licence";
 						        break;
 					        case TOCRLICENCE_V3PRO:
-						        Msg += " V3 Pro/V4 licence";
+						        Msg += " V3 Pro/V4/V5 licence";
 						        break;
 					        case TOCRLICENCE_V3PROUPGRADE:
-						        Msg += " V1/2 UPGRADE to V3 Pro/V4 licence";
+						        Msg += " V1/2 UPGRADE to V3 Pro/V4/V5 licence";
 						        break;
 					        case TOCRLICENCE_V3SEPROUPGRADE:
-						        Msg += " V3 SE UPGRADE to V3 Pro/V4 licence";
+						        Msg += " V3 SE UPGRADE to V3 Pro/V4/V5 licence";
 						        break;
 				        }
 				        if ( Volume != 0 || Time != 0 ) {
@@ -501,8 +498,6 @@ namespace CSharpDemo
 						    GlobalFree(hMems[ImgNo]);
 
 						    if ( (!hSMMF.IsClosed) && (!hSMMF.IsInvalid) ) {
-    // uncomment to see OCRed results
-
 							    JobInfo_EG.JobType = TOCRJOBTYPE_MMFILEHANDLE;
 							    JobInfo_EG.hMMF = hSMMF.DangerousGetHandle();
 							    if ( OCRWait(JobNo, ref JobInfo_EG) ) {
@@ -732,7 +727,7 @@ namespace CSharpDemo
             {
                 // 18a) Initialise the Page store to only contain the page to be analysed
                 page = docIn.GetPage(ImgNo + 1);  // get page is 1 based but ImgNo is zero based
-                page.m_ColourMode = ColourMode; // TODO: NP - check this doesn't overwrite anything important
+                page.m_ColourMode = ColourMode;
 
                 // 18b) find the page size in inches
                 page.m_size = page.FindPageSize();
@@ -778,15 +773,15 @@ namespace CSharpDemo
                     {
                         if (GetResults(JobNo, ref Results))
                         {
-#if DEBUG
-                            /* useful for debug
-						    String Msg = "";
-						    if ( FormatResults(Results, Msg) ) {
-						    FormatResults(Results, Msg);
-						    MessageBox(NULL, Msg, "Example 10", MB_TASKMODAL | MB_TOPMOST);
-						    }
-						    */
-#endif // _DEBUG
+                            #if DEBUG
+                                /* useful for debug
+						        String Msg = "";
+						        if ( FormatResults(Results, Msg) ) {
+						        FormatResults(Results, Msg);
+						        MessageBox(NULL, Msg, "Example 10", MB_TASKMODAL | MB_TOPMOST);
+						        }
+						        */
+                            #endif // _DEBUG
                             if (Results.Hdr.NumItems > 0)
                             {
                                 // Display the results

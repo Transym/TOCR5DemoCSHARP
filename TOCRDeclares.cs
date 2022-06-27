@@ -1,7 +1,7 @@
 // ***************************************************************************
 //  Module:     TOCRDeclares
 // 
-//  TOCR declares Version 5.0.0.0
+//  TOCR declares Version 5.1.0.0
 
 using System.Runtime.InteropServices;
 class TOCRDeclares {
@@ -575,7 +575,7 @@ class TOCRDeclares {
     public const byte TOCRJOBSPEED_EXPRESS = 3;
     
     //  Settings for TOCRJOBINFO_EG.PROCESSOPTIONS_EG.CCAlgorithm (Colour Conversion Algorithm)
-    public const System.Int32 TOCRJOBCC_AVERAGE = 0;//  (R+G+3)/3
+    public const System.Int32 TOCRJOBCC_AVERAGE = 0;//  (R+G+B)/3
     public const System.Int32 TOCRJOBCC_LUMA_BT601 = 1;//  0.299*R + 0.587*G + 0.114*B
     public const System.Int32 TOCRJOBCC_LUMA_BT709 = 2;//  0.2126*R + 0.7152*G + 0.0722*B
     public const System.Int32 TOCRJOBCC_DESATURATION = 3;//  (max(R,G,B) + min(R,G,B))/2
